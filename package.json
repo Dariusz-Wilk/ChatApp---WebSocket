@@ -1,0 +1,17 @@
+{
+	"name": "chat-app",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "git@github.com:Dariusz-Wilk/ChatApp---WebSocket.git",
+	"author": "Dariusz Wilk <dariusz.wilk.1993@gmail.com>",
+	"license": "MIT",
+	"scripts": {
+		"start": "nodemon server.js"
+	},
+	"devDependencies": {
+		"nodemon": "^3.0.2"
+	},
+	"dependencies": {
+		"express": "^4.18.2"
+	}
+}
