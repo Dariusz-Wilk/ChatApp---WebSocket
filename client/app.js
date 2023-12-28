@@ -9,6 +9,7 @@ let userName;
 
 const socket = io();
 socket.on('message', ({ author, content }) => addMessage(author, content));
+socket.on('loggedOff', ({ author, content }) => addMessage(author, content));
 
 const login = e => {
 	e.preventDefault();
@@ -18,6 +19,7 @@ const login = e => {
 		userName = userNameInput.value;
 		loginForm.classList.remove('show');
 		messagesSection.classList.add('show');
+		socket.emit('logged', { name: userNameInput.value, id: socket.id });
 	}
 };
 
@@ -41,6 +43,9 @@ const addMessage = (user, msg) => {
 	message.classList.add('message', 'message--received');
 	if (user === userName) {
 		message.classList.add('message--self');
+	}
+	if (user === 'Chat Bot') {
+		message.classList.add('message-bot');
 	}
 	message.innerHTML = `
     <h3 class="message__author">${userName === user ? 'You' : user}</h3>
