@@ -18,6 +18,36 @@ const login = e => {
 	}
 };
 
+const sendMessage = e => {
+	e.preventDefault();
+
+	if (messageContentInput.value === '') {
+		alert('There is nothing to send');
+	} else {
+		addMessage(userName, messageContentInput.value);
+		messageContentInput.value = '';
+	}
+};
+
+const addMessage = (user, msg) => {
+	const message = document.createElement('li');
+	message.classList.add('message', 'message--received');
+	if (user === userName) {
+		message.classList.add('message--self');
+	}
+	message.innerHTML = `
+    <h3 class="message__author">${userName === user ? 'You' : user}</h3>
+    <div class="message__content">
+      ${msg}
+    </div>
+  `;
+	messagesList.appendChild(message);
+};
+
 loginForm.addEventListener('submit', e => {
 	login(e);
+});
+
+addMessageForm.addEventListener('submit', e => {
+	sendMessage(e);
 });
