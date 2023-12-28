@@ -7,6 +7,9 @@ const messageContentInput = document.querySelector('#message-content');
 
 let userName;
 
+const socket = io();
+socket.on('message', ({ author, content }) => addMessage(author, content));
+
 const login = e => {
 	e.preventDefault();
 	if (userNameInput.value === '') {
@@ -25,6 +28,10 @@ const sendMessage = e => {
 		alert('There is nothing to send');
 	} else {
 		addMessage(userName, messageContentInput.value);
+		socket.emit('message', {
+			author: userName,
+			content: messageContentInput.value,
+		});
 		messageContentInput.value = '';
 	}
 };
